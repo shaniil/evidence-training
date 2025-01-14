@@ -26,10 +26,10 @@ jobs:
       - name: Install jfrog cli
         uses: jfrog/setup-jfrog-cli@v4
         env:
-          JF_URL: https://${{ vars.ARTIFACTORY_URL }}/
-          JF_PROJECT: ${{ vars.JF_PROJECT }}
+          JF_URL: https://${{ vars.ARTIFACTORY_URL}}/
+          JF_PROJECT: ${{ vars.JF_PROJECT}}
         with:
-          oidc-provider-name: shani-github-integration
+          oidc-provider-name: shani-github-integration 
           oidc-audience: shani-audience
           version: latest
       
