@@ -26,7 +26,8 @@ jobs:
       - name: Install jfrog cli
         uses: jfrog/setup-jfrog-cli@v4
         env:
-          JF_URL: ${{ vars.ARTIFACTORY_URL }}
+          JF_URL: https://${{ vars.ARTIFACTORY_URL }}/
+          JF_PROJECT: ${{ vars.JF_PROJECT }}
         with:
           oidc-provider-name: shani-github-integration
           oidc-audience: shani-audience
@@ -35,15 +36,13 @@ jobs:
       - name: Docker Authenticate
         uses: docker/login-action@v3
         with:
-          registry: ${{ vars.DOCKER_URL }}
+          registry: ${{ vars.ARTIFACTORY_URL }}
           username: ${{ steps.setup-cli.outputs.oidc-user }}
           password: ${{ steps.setup-cli.outputs.oidc-token }}
           
       - name: Build Docker image
         run: |
-          URL=$(echo ${{ vars.ARTIFACTORY_URL }} | sed 's|^https://||')
-          echo '$URL'
-          REPO_URL=${URL}/${REPO_NAME}
+          REPO_URL=${ARTIFACTORY_URL}/${REPO_NAME}
           docker build -t ${REPO_URL}/example-go-app:${{ github.run_number }} .
           jf docker push ${REPO_URL}/example-go-app:${{ github.run_number }}
 
