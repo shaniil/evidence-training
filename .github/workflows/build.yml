@@ -27,7 +27,7 @@ jobs:
         with:
           registry: ${{ vars.ARTIFACTORY_URL }}
           username: ${{ secrets.ARTIFACTORY_USER }}
-          password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}  
+          password: ${{ secrets.ARTIFACTORY_PASSWORD }}  
           
       - name: Build Docker image
         run: |
