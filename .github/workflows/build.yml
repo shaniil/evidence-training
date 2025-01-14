@@ -4,8 +4,11 @@ on:
   [workflow_dispatch]
 
 permissions:
-  id-token: write
-  contents: read
+  actions: read           # for detecting the Github Actions environment
+  id-token: write         # for creating OIDC tokens for signing
+  packages: write         # for uploading attestations
+  contents: read          # read the contents permission
+  security-events: write  # for uploading code scanning
 
 jobs:
   Docker-build-with-evidence:
