@@ -21,7 +21,14 @@ jobs:
         env:
           JF_URL: ${{ vars.ARTIFACTORY_URL }}
           JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
-
+      
+      - name: Docker Authenticate
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.ARTIFACTORY_URL }}
+          username: ${{ secrets.ARTIFACTORY_USER }}
+          password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+          
       - name: Build Docker image
         run: |
           URL=$(echo ${{ vars.ARTIFACTORY_URL }} | sed 's|^https://||')
