@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      REPO_NAME: sl-evd-shani-oci-dev-local
+      REPO_NAME: shani-oci-dev-local
     steps:
       - name: Print Inputs
         run: echo "${{ toJSON(github.event.inputs) }}"
@@ -27,9 +27,9 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v4
         env:
           JF_URL: ${{ vars.ARTIFACTORY_URL}}
-          JF_PROJECT: ${{ vars.JF_PROJECT}}
+          #JF_PROJECT: ${{ vars.JF_PROJECT}}
         with:
-          oidc-provider-name: shani-github-integration 
+          oidc-provider-name: shani-frogbot-integration 
           oidc-audience: shani-audience
           version: latest
       
